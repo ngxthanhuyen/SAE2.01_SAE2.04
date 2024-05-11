@@ -63,23 +63,6 @@ class DataBase:
         self.cursor.execute('INSERT OR IGNORE INTO STATIONS (id_commune, id_departement, id_masse_eau, code_bss, bss_id, urn_bss, profondeur_investigation, x, y, altitude_station, nb_mesures_piezo) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
                             (id_commune, id_departement, id_masse_eau, code_bss, bss_id, urn_bss, profondeur_investigation, x, y, altitude_station, nb_mesures_piezo))
         self.conn.commit()
-    def get_id_commune(self, code_commune_insee):
-        query = "SELECT id_commune FROM COMMUNES WHERE code_commune_insee = ?"
-        self.cursor.execute(query, (code_commune_insee,))
-        result = self.cursor.fetchone()
-        return result[0] if result else None
-
-    def get_id_departement(self, code_departement):
-        query = "SELECT id_departement FROM DEPARTEMENTS WHERE code_departement = ?"
-        self.cursor.execute(query, (code_departement,))
-        result = self.cursor.fetchone()
-        return result[0] if result else None
-
-    def get_id_masse_eau(self, code_masse_eau):
-        query = "SELECT id_masse_eau FROM MASSE_EAU WHERE code_masse_eau_edl = ?"
-        self.cursor.execute(query, (code_masse_eau,))
-        result = self.cursor.fetchone()
-        return result[0] if code_masse_eau else 0
     def close(self):
         self.conn.close()
     
