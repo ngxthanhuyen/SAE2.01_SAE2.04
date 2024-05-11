@@ -58,7 +58,6 @@ def load_data():
                 db.insert_masse_eau(code_masse_eau, nom_masse_eau, urn_masse_eau) 
                 
               #Insertion des informations des stations après récupération des IDs nécessaires des autres tables
-              
               id_commune = get_id_commune(entry['code_commune_insee'])
               id_departement = get_id_departement(entry['code_departement'])
               id_masse_eau = get_id_masse_eau(code_masse_eau)
