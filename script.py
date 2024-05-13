@@ -70,5 +70,6 @@ def load_data():
         raise Exception(f"Erreur HTTP {response.status_code}")
   
 
+
 if __name__ == "__main__":
     print(load_data())

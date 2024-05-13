@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carte des Stations Piézométriques</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map { height: 80vh; }
+        .control { padding: 10px; }
+    </style>
+</head>
+<body>
+    <div class="control">
+        <label>Votre code postal</label>
+        <input type="text" id="search" placeholder="Code postal ou ville "><br><br>
+        <label>Dans un rayon de</label>
+        <select id="radius">
+            <option value="5">Moins de 5 km</option>
+            <option value="10">Moins de 10 km</option>
+            <option value="20">Moins de 20 km</option>
+        </select><br>
+        <button onclick="searchStations()">Rechercher</button>
+    </div>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

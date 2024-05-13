@@ -31,7 +31,7 @@ class DataBase:
               id_commune INTEGER NOT NULL,
               id_departement INTEGER NOT NULL,
               id_masse_eau INTEGER NOT NULL,
-              code_bss TEXT,
+              code_bss TEXT UNIQUE,
               bss_id TEXT,
               urn_bss TEXT,
               profondeur_investigation REAL,
