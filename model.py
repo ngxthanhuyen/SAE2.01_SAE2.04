@@ -4,6 +4,7 @@ class DataBase:
         self.conn = sqlite3.connect('SAE204.db')
         self.cursor = self.conn.cursor()
         self.create_tables()
+
     def create_tables(self):
         try:
             self.cursor.execute('''

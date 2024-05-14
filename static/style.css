@@ -1,0 +1,35 @@
+.recherche #search {
+    width: 300px;
+    background-color: rgb(230, 230, 255);
+    cursor: pointer;
+}
+.recherche-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+
+}
+#search:hover {
+    background-color: blue;
+}
+#suggestions {
+    position: relative;
+    display: inline-block;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 10px;
+}
+#map { 
+    height: 500px;
+    width: 700px 
+}
+        
+.control { 
+    padding: 10px; 
+}
+

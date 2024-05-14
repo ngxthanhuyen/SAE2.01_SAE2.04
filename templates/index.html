@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carte des Stations Piézométriques</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <style>
-        #map { height: 80vh; }
-        .control { padding: 10px; }
-    </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>   
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script> 
 </head>
 <body>
-    <div class="control">
-        <label>Votre code postal</label>
-        <input type="text" id="search" placeholder="Code postal ou ville "><br><br>
+    <div class="recherche">
+        <label>Votre ville</label>
+        <input type="text" id="search" placeholder="Entrez votre ville" oninput="updateSuggestions()"><br><br>
+        <div id="suggestions"></div>
         <label>Dans un rayon de</label>
         <select id="radius">
             <option value="5">Moins de 5 km</option>
@@ -23,8 +26,7 @@
         <button onclick="searchStations()">Rechercher</button>
     </div>
     <div id="map"></div>
-
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="app.js"></script>
+    
+    <script src="/static/app.js"></script>
 </body>
 </html>
