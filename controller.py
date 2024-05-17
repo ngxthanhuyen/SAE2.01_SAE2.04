@@ -39,7 +39,7 @@ def stations_par_commune():
     commune = request.args.get('commune', '')
     with db.conn:  
         cursor = db.conn.cursor()
-        cursor.execute("SELECT code_bss, x, y FROM stations S INNER JOIN communes C ON s.id_commune = c.id_commune WHERE C.nom_commune LIKE ?", 
+        cursor.execute("SELECT code_bss, x, y FROM stations S INNER JOIN communes C ON s.code_commune_insee = c.code_commune_insee WHERE C.nom_commune LIKE ?", 
                        ('%' + commune + '%',))
         stations = cursor.fetchall()
         print(stations)  # Debug pour voir les données extraites
