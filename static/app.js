@@ -3,7 +3,7 @@ const input = document.getElementById('search');
 const dropdown = document.getElementById('autocomplete');
 //Index pour suivre l'élément actuellement en focus dans les suggestions
 let currentFocus = -1;
-let map;  // Déclarer map au niveau global
+let map;  //Déclarer map au niveau global
 
 //écouteur pour les saisies dans le champ de recherche
 input.addEventListener("input", getCommuneData);
@@ -57,7 +57,7 @@ function getCommuneData() {
                         //On met à jour le champ de recherche avec la valeur sélectionnée
                         input.value = commune;
                         dropdown.innerHTML = '';
-                        console.log("Commune sélectionnée:", commune);  // Ajoutez ceci pour déboguer
+                        console.log("Commune sélectionnée:", commune);  
                         //On charge les stations pour la commune sélectionnée
                         loadStationsForCommune(commune, map);
                     });
@@ -132,8 +132,8 @@ function loadStationsForCommune(commune, map) {
     fetch(`/stations_par_commune?commune=${encodeURIComponent(commune)}`)
     .then(response => response.json())
     .then(data => {
-        console.log("Stations reçues:", data);  // Ajoutez ceci pour vérifier les données
-        // Nettoyer les anciens marqueurs avant d'ajouter de nouveaux
+        console.log("Stations reçues:", data);  
+        //  On nettoie les anciens marqueurs avant d'ajouter de nouveaux
         if (window.mapMarkers) {
             window.mapMarkers.forEach(marker => map.removeLayer(marker));
         }
@@ -144,7 +144,7 @@ function loadStationsForCommune(commune, map) {
             if (x && y) { 
                 const marker = L.marker([y, x]).addTo(map);
                 marker.bindPopup(`Code BSS: ${code_bss}`);
-                window.mapMarkers.push(marker); // Stocker le marqueur pour suppression future
+                window.mapMarkers.push(marker); 
             }
         });
     })
