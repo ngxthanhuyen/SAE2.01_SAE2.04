@@ -14,16 +14,24 @@
 </head>
 <body>
     <div class="recherche">
-        <label>Votre ville</label>
-        <input type="text" id="search" placeholder="Entrez votre ville" oninput="updateSuggestions()"><br><br>
-        <div id="suggestions"></div>
-        <label>Dans un rayon de</label>
-        <select id="radius">
-            <option value="5">Moins de 5 km</option>
-            <option value="10">Moins de 10 km</option>
-            <option value="20">Moins de 20 km</option>
-        </select><br>
-        <button onclick="searchStations()">Rechercher</button>
+        <div class="input-group">
+            <label for="search">Votre ville</label>
+            <div class="autocomplete-wrapper">
+                <input type="text" id="search" placeholder="Entrez votre ville" oninput="getCommuneData()">
+                <div class="autocomplete-list">
+                    <div id="autocomplete"></div>
+                </div>
+            </div>
+        </div>
+        <div class="input-group">
+            <label>Dans un rayon de</label>
+            <select id="radius">
+                <option value="5">Moins de 5 km</option>
+                <option value="10">Moins de 10 km</option>
+                <option value="20">Moins de 20 km</option>
+            </select>
+        </div>
+        <button class="button" onclick="searchStations()">Rechercher</button>
     </div>
     <div id="map"></div>
     
