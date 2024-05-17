@@ -132,23 +132,23 @@ function loadStationsForCommune(commune, map) {
     fetch(`/stations_par_commune?commune=${encodeURIComponent(commune)}`)
     .then(response => response.json())
     .then(data => {
-        console.log("Stations reçues:", data);  
-        //  On nettoie les anciens marqueurs avant d'ajouter de nouveaux
-        if (window.mapMarkers) {
-            window.mapMarkers.forEach(marker => map.removeLayer(marker));
-        }
-        window.mapMarkers = [];
-        
+        let group = new L.featureGroup();  //On crée un groupe de fonctionnalités pour contenir les marqueurs
+
         data.forEach(station => {
             const [code_bss, x, y] = station;
             if (x && y) { 
-                const marker = L.marker([y, x]).addTo(map);
-                marker.bindPopup(`Code BSS: ${code_bss}`);
-                window.mapMarkers.push(marker); 
+                const marker = L.marker([y, x]).addTo(map).bindPopup(`Code BSS: ${code_bss}`);
+                group.addLayer(marker);  //On ajoute chaque marqueur au groupe
+                window.mapMarkers.push(marker);  //On stocke les marqueurs pour une gestion future
             }
         });
+
+        if (group.getLayers().length > 0) {
+            map.fitBounds(group.getBounds(), { padding: [50, 50] });  //Ajustez le zoom et le centrage de la carte autour des marqueurs
+        }
     })
     .catch(error => console.error('Erreur lors de la récupération des stations:', error));
 }
+
 
 

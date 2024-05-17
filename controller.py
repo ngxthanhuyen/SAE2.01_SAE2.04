@@ -47,4 +47,3 @@ def stations_par_commune():
 
 if __name__ == "__main__":
     app.run(debug=True)
-    print(stations_par_commune())

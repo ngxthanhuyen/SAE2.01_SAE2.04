@@ -14,7 +14,7 @@ def get_id_station(code_bss):
    query = "SELECT id_station FROM stations WHERE code_bss = ?"
    db.cursor.execute(query, (code_bss,))
    result = db.cursor.fetchone()
-   return result[0] if code_bss else 0
+   return result[0] if result else 0
 
 #####################################################################
 # CHARGEMENT ET TRAITEMENT DES DONNÉES
@@ -24,7 +24,7 @@ def load_data():
     response = requests.get(URL)
     #On vérifie si la requête a réussi (avec code de statut 200), ou partiellement réussi (avec code de statut = 206)
     if response.status_code == 200 or response.status_code == 206:
-        data = response.json()
+        data = response.json() 
         if 'data' in data:
             #On insère les données dans la base de données
             for entry in data['data']:
@@ -44,8 +44,8 @@ def load_data():
               urn_masse_eau = urn_masse_eau[0] if urn_masse_eau else None
               id_station = get_id_station(entry['code_bss'])
               #On vérifie si toutes les informations nécessaires sont présentes avant d'insérer
-              if code_masse_eau and nom_masse_eau and urn_masse_eau and id_station:
-                db.insert_masse_eau(code_masse_eau, nom_masse_eau, urn_masse_eau, id_station) 
+              if id_station and code_masse_eau and nom_masse_eau and urn_masse_eau:
+                db.insert_masse_eau(id_station, code_masse_eau, nom_masse_eau, urn_masse_eau) 
                 
               db.insert_station(entry['code_bss'], entry['bss_id'], entry['urn_bss'], entry['code_commune_insee'],entry['profondeur_investigation'], entry['x'], entry['y'], entry['altitude_station'], entry['nb_mesures_piezo'])           
             return "Données chargées avec succès"
