@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
     crossorigin=""/>   
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/style/style.css">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script> 
 </head>
 <body>
-    <div class="recherche">
-        <div class="input-group">
+    <div class="recherche-container">
+        <div class="recherche">
             <label for="search">Votre ville</label>
             <div class="autocomplete-wrapper">
                 <input type="text" id="search" placeholder="Entrez votre ville" oninput="getCommuneData()">
@@ -23,18 +23,36 @@
                 </div>
             </div>
         </div>
-        <div class="input-group">
+        <div class="recherche">
             <label>Dans un rayon de</label>
             <select id="radius">
                 <option value="5">Moins de 5 km</option>
                 <option value="10">Moins de 10 km</option>
                 <option value="20">Moins de 20 km</option>
+                <option value="0">Sans rayon</option>
             </select>
         </div>
-        <button class="button" onclick="searchStations()">Rechercher</button>
+        <div class="recherche">
+            <button class="button" onclick="searchStations()">Rechercher</button>
+        </div>
     </div>
-    <div id="map"></div>
-    
-    <script src="/static/app.js"></script>
+
+    <div class="infos-container">
+        <div id="sidebar">
+            <h2>Stations</h2>
+            <ul id="stationList">
+                <li></li>
+            </ul>
+        </div>
+        <div id="map">
+            <div id="stationDetails" class="stationDetails">
+                <button class="close-btn">&times;</button>
+                <div class="details-content">
+                </div>
+            </div>
+        </div>
+    </div>    
+    <a href="/real_time">Real Time Data</a>
+    <script src="/static/script/app.js"></script>
 </body>
 </html>
