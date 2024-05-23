@@ -1,4 +1,7 @@
 import sqlite3
+import requests
+import geopy.distance
+
 class DataBase:
     def __init__(self):
         self.conn = sqlite3.connect('SAE204.db', check_same_thread=False)
@@ -64,4 +67,67 @@ class DataBase:
         self.conn.commit()    
     def close(self):
         self.conn.close()
+
+class Recherche:
+    def __init__(self,db):
+        self.db = db
+
+    def recherche_communes(self, query):
+        with self.db.conn:
+            cursor = self.db.conn.cursor()
+            cursor.execute("SELECT DISTINCT nom_commune FROM communes WHERE nom_commune LIKE ?", (query + '%',))
+            return cursor.fetchall()
+
+    def recherche_stations_par_commune(self, commune):
+        with self.db.conn:
+            cursor = self.db.conn.cursor()
+            cursor.execute("""
+                SELECT code_bss, x, y FROM stations S
+                INNER JOIN communes C ON S.code_commune_insee = C.code_commune_insee
+                WHERE nom_commune LIKE ?
+            """, ('%' + commune + '%',))
+            return cursor.fetchall()
+
+    def recherche_stations_par_commune_et_rayon(self, commune, radius):
+        with self.db.conn:
+          cursor = self.db.conn.cursor()
+          #Requête SQL pour obtenir les coordonnées moyennes de la commune basées sur les stations
+          cursor.execute("""
+            SELECT AVG(x) as avg_lon, AVG(y) as avg_lat
+            FROM stations S
+            JOIN communes C ON S.code_commune_insee = C.code_commune_insee
+            WHERE C.nom_commune LIKE ?
+          """, ('%' + commune + '%',))
+          avg_coords = cursor.fetchone()
+          avg_lon, avg_lat = avg_coords
+          #On sélectionne les stations dans le rayon spécifié
+          cursor.execute("SELECT code_bss, x, y FROM stations")
+          stations = cursor.fetchall()
+          filtered_stations = [
+            {"code_bss": s[0], "x": s[1], "y": s[2]}
+            for s in stations
+            if geopy.distance.geodesic((avg_lat, avg_lon), (s[2], s[1])).km <= radius
+          ]
+          return {"latitude": avg_lat, "longitude": avg_lon, "stations": filtered_stations}
     
+    def get_stations_details(self, code_bss):
+      with self.db.conn:
+        cursor = self.db.conn.cursor()
+        cursor.execute('''
+          SELECT S.code_bss, S.bss_id, S.code_commune_insee, C.nom_commune, C.code_departement, D.nom_departement, M.code_masse_eau_edl, M.nom_masse_eau_edl, S.profondeur_investigation, S.altitude_station, S.nb_mesures_piezo
+          FROM stations S
+          LEFT JOIN communes C ON S.code_commune_insee = C.code_commune_insee
+          LEFT JOIN departements D ON C.code_departement = D.code_departement
+          LEFT JOIN masse_eau M ON S.id_station = M.id_station
+          WHERE S.code_bss = ?
+        ''', (code_bss,))
+        result = cursor.fetchone()
+        #On transforme les résultats bruts de la requête en un dictionnaire ou chaque clé est le nom d'une colonne
+        return dict(zip([column[0] for column in cursor.description], result))
+        
+
+    
+        
+        
+
+
