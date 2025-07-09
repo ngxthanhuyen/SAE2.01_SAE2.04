@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chroniques en temps réel</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/themes/odometer-theme-default.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"></script>
+    <link rel="stylesheet" href="/static/style/chroniques_tr.css">
+</head>
+<body>
+    <header>
+        {% include 'nav.html' %}
+    </header>
+    <div id="overlay"></div>
+    <div id="preloader"></div>
+    <div id="map-container">
+        <div id="map"></div>
+        <div id="info-panel">
+            <div class="info-stations">
+                <div class="piez-eau">
+                    <span>PIEZ’EAU</span>
+                </div>
+                <div class="details">
+                    <div class="nfg">
+                        <div class="label">Niveau de <br>l’eau NFG</div>
+                        <div class="value odometer" id="ngf-value">000</div>
+                    </div>
+                    <div class="pfn">
+                        <div class="label">Profondeur de<br>la nappe</div>
+                        <div class="value odometer" id="pfn-value">000</div>
+                    </div>
+                </div>
+                <div class="station-infos">
+                    <div class="identifiant-station">
+                      Identifiant de station
+                    </div>
+                    <div class="station-id" id="station-id">
+                    </div>
+                    <div class="date-mesure">
+                      Date de mesure
+                    </div>
+                    <div class="date-de-mesure" id="date-de-mesure">
+                    </div>
+                </div>
+                <div class="legende">
+                    <div class="legende-container">
+                        <div class="title">
+                            Différents niveaux de nappes
+                        </div>
+                        <div class="legende-colors">
+                            <div class="legende-item" style="background: #B60000;">
+                                <div class="tooltip">
+                                    <strong span style="color: #B60000;">CATÉGORIE</strong><span >NIVEAU TRÈS BAS</span>
+                                    <strong span style="color: #B60000;">INDICATEUR PIÉZOMÉTRIQUE STANDARDISÉ</strong><span>&lt; -1,28</span>
+                                </div>
+                            </div>
+                            <div class="legende-item" style="background: #FF8A00;">
+                                <div class="tooltip">
+                                    <strong style="color: #FF8A00;">CATÉGORIE</strong><span>NIVEAU BAS</span>
+                                    <strong style="color: #FF8A00;">INDICATEUR PIÉZOMÉTRIQUE STANDARDISÉ</strong><span>De -1,28 à -0,84</span>
+                                </div>
+                            </div>
+                            <div class="legende-item" style="background: #FFF503;">
+                                <div class="tooltip">
+                                    <strong style="color: #FFF503;">CATÉGORIE</strong><span>NIVEAU MODÉRÉMENT BAS</span>
+                                    <strong style="color: #FFF503;">INDICATEUR PIÉZOMÉTRIQUE STANDARDISÉ</strong><span>De -0,84 à -0,25</span>
+                                </div>
+                            </div>
+                            <div class="legende-item" style="background: #00D909;">
+                                <div class="tooltip">
+                                    <strong style="color: #00D909;">CATÉGORIE</strong><span>NIVEAU PROCHE DE LA MOYENNE</span>
+                                    <strong style="color: #00D909;">INDICATEUR PIÉZOMÉTRIQUE STANDARDISÉ</strong><span>De -0,25 à 0,25</span>
+                                </div>
+                            </div>
+                            <div class="legende-item" style="background: #00B3DB;">
+                                <div class="tooltip">
+                                    <strong style="color: #00B3DB;">CATÉGORIE</strong><span>NIVEAU MODÉRÉMENT HAUT</span>
+                                    <strong style="color: #00B3DB;">INDICATEUR PIÉZOMÉTRIQUE STANDARDISÉ</strong><span>De 0,25 à 0,84</span>
+                                </div>
+                            </div>
+                            <div class="legende-item" style="background: #0069E5;">
+                                <div class="tooltip">
+                                    <strong style="color: #0069E5;">CATÉGORIE</strong><span>NIVEAU HAUT</span>
+                                    <strong style="color: #0069E5;">INDICATEUR PIÉZOMÉTRIQUE STANDARDISÉ</strong><span>De 0,84 à 1,28</span>
+                                </div>
+                            </div>
+                            <div class="legende-item" style="background: #5C80AA;">
+                                <div class="tooltip">
+                                    <strong style="color: #5C80AA">CATÉGORIE</strong><span>NIVEAU TRÈS HAUT</span>
+                                    <strong style="color: #5C80AA">INDICATEUR PIÉZOMÉTRIQUE STANDARDISÉ</strong><span>&gt; 1,28</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cocher_case">
+                    <label for="toggle-charts">Visualiser les graphiques ?</label>
+                    <input type="checkbox" id="toggle-charts" name="toggle-charts">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="chart-container">
+        <div id="piechart-container" class="chart-wrapper">
+            <canvas id="piechart" aria-label="chart"></canvas>
+        </div>
+        <div id="barchart-container" class="chart-wrapper">
+            <canvas id="barchart" aria-label="chart"></canvas>
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+    <script src="/static/script/chroniques_tr.js"></script>
+</body>
+</html>

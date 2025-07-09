@@ -1,0 +1,878 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+* {
+    margin: none;
+    padding: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style de la barre de navigation */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #12769E;
+    height: 70px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo img {
+    height: 100px;
+    width: 100px;
+    margin-right: 0.2rem;
+}
+
+.navbar-logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.navbar-logo span {
+    font-size: 26px; 
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    color: #fcf6f3; 
+}
+
+.navbar-menu {
+    margin-right: 20px;
+    padding: 0;
+    display: flex;
+    list-style: none;
+}
+
+.navbar-menu li {
+    margin-left: 1rem;
+}
+
+.navbar-menu .navbar-link {
+    color: #fcf6f3;
+    text-decoration: none;
+    padding: 0.5rem 2rem;
+    font-size: 20px;
+}
+
+.navbar-menu .navbar-link:hover {
+    transition: background-color 0.3s;
+    border-radius: 50px;
+    background-color: #fcf6f3;
+    color: #12769E;
+    text-decoration: none;
+}
+
+.a-propos {
+    color: #fcf6f3;
+    background-color: #001952; 
+    border-radius: 50px;
+    padding: 1rem 1rem;
+}
+
+.a-propos:hover {
+    background-color: #fcf6f3;
+    color: #12769E;
+}
+
+#preloader {
+    background: url('/static/images/preloader.gif') no-repeat center;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 10000;
+    display: none;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 9999;
+    display: none;
+}
+
+.leaflet-tooltip.my-tooltip {
+    background-color: #fff;
+    fill-opacity: 0.5;
+    border: 1px solid #ccc;
+    color: #333;
+    font-size: 9px;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+#map-container {
+    position: relative;
+    height: calc(100vh - 70px); 
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 500;
+    width: calc(65% + 50px); 
+}
+
+#info-panel {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    font-size: 16px;
+    background-image: url(/static/images/info-panel.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 36%;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: -2px 4px 7px 3px rgba(0, 0, 0, 0.33);
+    border-radius: 70px 0 0 70px;
+    z-index: 1000; 
+}
+
+
+.vague_eau {
+    width: 100%;
+}
+
+.piez-eau {
+    font-size: 60px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #001952;
+    text-align: center;
+    padding: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.nfg, .pfn {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.label {
+    color: #12769E;
+    font-size: 30px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.value {
+    border-radius: 11px;
+    background: #12769E;
+    padding: 10px;
+    width: 180px;
+    color: #fff;
+    font-size: 50px;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+
+.station-infos {
+    opacity: 0.9;
+    box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.36);
+    border-radius: 23px;
+    background: #ffffff;
+    position: absolute;
+    left: 100px;
+    bottom: 170px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 0 20px 0;
+    width: 330px;
+    box-sizing: border-box;
+}
+
+.identifiant-station {
+    margin-bottom: 8px;
+    display: inline-block;
+    overflow-wrap: break-word;
+    font-family: 'Montserrat';
+    font-weight: 800;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #001952;
+}
+
+.station-id {
+    width: 250px;
+    height: 30px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 3px;
+    border: 1px solid #12769E;
+    background: #FCF6F3;
+    position: relative;
+    margin-bottom: 4.7px;
+    display: flex;
+    padding: 6px;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #12769E;
+}
+
+.date-mesure {
+    margin-bottom: 8px;
+    display: inline-block;
+    overflow-wrap: break-word;
+    font-family: 'Montserrat';
+    font-weight: 800;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #001952;
+}
+
+
+.date-de-mesure {
+    width: 250px; 
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 3px;
+    border: 1px solid #12769E;
+    background: #FCF6F3;
+    position: relative;
+    margin-bottom: 4.7px;
+    display: flex;
+    padding: 6px;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #12769E;
+}
+
+
+
+.legende {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 180px;
+    padding: 30px;
+}
+
+.legende .title {
+    margin: 0 0 11px 120px;
+    display: inline-block;
+    overflow-wrap: break-word;
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 15px;
+    text-transform: uppercase;
+    color: #12769E;
+}
+
+
+.legende-colors {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.legende-item {
+    position: relative;
+    display: inline-block;
+    width: 70px;
+    height: 32px;
+    cursor: pointer;
+}
+.legende-item:hover .tooltip {
+    display: block;
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    left: 30px;
+    top: 28px;
+    transform: translateX(-50%);
+    background-color: #fff;
+    color: #12769E;
+    padding: 8px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 320px;
+}
+.tooltip::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0 20px 22px 20px;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent;
+}
+.tooltip strong {
+    text-align: center;
+    font-weight: bold;
+    color: #12769E;
+    display: block;
+    font-size: 14px;
+    margin-bottom: 3px;
+}
+
+.tooltip span {
+    text-align: center;
+    display: block;
+    font-size: 12px;
+    color: black;
+    font-weight: 600;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-bottom: 2px;
+}
+
+.cocher_case {
+    display: flex;
+    align-items: center;
+    padding: -40px;
+    justify-content: center;
+}
+.cocher_case label {
+    color: #12769E;
+    font-size: 22px;
+    font-weight: bold;
+    margin-right: 12px;
+}
+
+.cocher_case input[type="checkbox"] {
+    transform: scale(1.5);
+}
+
+.chart-container {
+    margin-top: 140px;
+    display: none;
+    flex-direction: row;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.chart-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#piechart-container {
+    width: 40%;
+    height: 75%;
+}
+
+#barchart-container {
+    width: 60%;
+    height: 80%;
+}
+
+#piechart {
+    height: 60%;
+}
+
+/*Style du footer*/ 
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    background-image: url(/static/images/water.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.footer .piez-eau {
+    margin-bottom: 24px;
+    display: inline-block;
+    align-self: flex-start;
+    overflow-wrap: break-word;
+    font-family: 'Inter';
+    font-weight: bold;
+    font-size: 36px; 
+    color: #FFFFFF;
+}
+
+.footer .stations-chroniques-chroniques-en-temps-rel {
+    overflow-wrap: break-word;
+    font-family: 'Montserrat';
+    font-weight: 400;
+    font-size: 20px; 
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer a {
+    text-decoration: none;
+    display: block;
+    flex-direction: column;
+    margin-bottom: 35px; 
+    padding: 0.875rem 1.25rem; 
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.footer .stations, .footer .chroniques, .footer .chroniques-tr, .footer .alertes {
+    background-color: #fcf6f3;
+    color: #12769E;
+    border-radius: 50px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+.footer .stations:hover, .footer .chroniques:hover, .footer .chroniques-tr:hover, .footer .alertes:hover {
+    color: #fcf6f3;
+    background-color: #12769E;
+}
+
+.footer .text-piezeau {
+    margin: 0 35px 140px 0; 
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.footer .propos {
+    margin-bottom: 22px;
+    display: inline-block;
+    overflow-wrap: break-word;
+    font-family: 'Montserrat';
+    font-weight: bold;
+    font-size: 36px;
+    color: #FFFFFF;
+}
+
+.footer span {
+    text-align: justify;
+    overflow-wrap: break-word;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 400;
+    font-size: 15px; 
+    color: #FFFFFF;
+    list-style: none;
+    line-height: 28px; 
+}
+
+.footer .text-apropos {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 550px; 
+    padding-left: 70px; 
+}
+
+.footer .group-2 {
+    margin: 0 0 35px 0; 
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+}
+
+.footer .contact {
+    display: flex;
+    flex-direction: column;
+    width: 450px; 
+    box-sizing: border-box;
+    padding-left: 70px; 
+}
+
+.footer .contacter-piez-eau {
+    margin-bottom: 25px;
+    display: inline-block;
+    align-self: flex-start;
+    overflow-wrap: break-word;
+    font-family: 'Montserrat';
+    font-weight: bold;
+    font-size: 36px; /* Taille ajustée */
+    color: #FFFFFF;
+}
+
+.footer input:focus, .footer textarea:focus {
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+
+.footer .votre-nom, .footer .votre-mail, .footer .votre-message {
+    overflow-wrap: break-word;
+    font-family: 'Montserrat';
+    font-weight: 400;
+    font-size: 15px; 
+    color: #696565;
+    border-radius: 8px;
+    background: white;
+    position: relative;
+    margin-bottom: 25px; 
+    padding: 6px 13px;
+    width: 350px; 
+    height: 45px; 
+    box-sizing: border-box;
+    border: none;
+}
+
+.footer .votre-message {
+    height: 170px; 
+    padding-bottom: 130px; 
+}
+
+.footer input {
+    border-radius: 8px;
+    background: white;
+    position: relative;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.footer .envoyer {
+    margin-right: 12px; 
+    overflow-wrap: break-word;
+    font-family: 'Montserrat';
+    font-weight: 400;
+    font-size: 15px; 
+    color: #000000;
+}
+
+.footer .vector {
+    width: 17.5px; 
+    height: 15px; 
+}
+
+.footer .icbaseline-send {
+    margin-top: 7px;
+    display: flex;
+    width: 17.5px; 
+    height: 15px; 
+    box-sizing: border-box;
+}
+
+.footer .envoyer-1 {
+    border-radius: 8px;
+    background: #75D4FA;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    padding: 6px 10px; 
+    width: fit-content;
+    box-sizing: border-box;
+}
+
+.footer .rectangles {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: fit-content;
+    box-sizing: border-box;
+}
+
+.footer .contacter {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    box-sizing: border-box;
+    margin-top: 75px; 
+}
+
+.footer .vector-1 {
+    width: 25px;
+    height: 25px;
+}
+.footer .uilinstagram {
+    margin: 0px 23.8px 0 0;
+    display: flex;
+    width: 25px;
+    height: 25px;
+    box-sizing: border-box;
+}
+.footer .vector-2 {
+    width: 16.3px;
+    height: 25px;
+}
+.footer .evafacebook-outline {
+    margin: 0 22.5px 0px 0;
+    display: flex;
+    width: 16.3px;
+    height: 25px;
+    box-sizing: border-box;
+}
+.footer .vector-3 {
+    width: 30px;
+    height: 24.5px;
+}
+.footer .simple-line-iconssocial-twitter {
+    margin: 0.3px 17.5px 0.3px 0;
+    display: flex;
+    width: 30px;
+    height: 24.5px;
+    box-sizing: border-box;
+}
+.footer .vector-4 {
+    width: 25px;
+    height: 25px;
+}
+.footer .ripinterest-line {
+    margin: 0px 21.1px 0 0;
+    display: flex;
+    width: 25px;
+    height: 25px;
+    box-sizing: border-box;
+}
+.footer .vector-5 {
+    width: 22.6px;
+    height: 25px;
+}
+.footer .ritiktok-line {
+    margin: 0px 0;
+    display: flex;
+    width: 22.6px;
+    height: 25px;
+    box-sizing: border-box;
+}
+.footer .icon {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    box-sizing: border-box;
+}
+
+/* Media Queries */
+@media (max-width: 1200px) {
+    .navbar-logo img {
+        height: 80px;
+        width: 80px;
+    }
+    .navbar-logo span {
+        font-size: 22px;
+    }
+    .navbar-link {
+        font-size: 18px;
+        padding: 0.5rem 1.5rem;
+    }
+    .navbar-menu {
+        margin-left: 200px;
+    }
+    .piez-eau {
+        font-size: 50px;
+    }
+    .label {
+        font-size: 24px;
+    }
+    .value {
+        font-size: 40px;
+        width: 150px;
+    }
+    .station-infos {
+        width: 280px;
+    }
+    .footer .piez-eau, .footer .propos, .footer .contacter-piez-eau {
+        font-size: 35px;
+    }
+    .footer .stations-chroniques-chroniques-en-temps-rel, .footer span {
+        font-size: 20px;
+    }
+    .footer .text-apropos, .footer .contact {
+        width: 80%;
+    }
+    .footer .votre-nom, .footer .votre-mail, .footer .votre-message {
+        width: 80%;
+    }
+}
+
+@media (max-width: 992px) {
+    .navbar-container {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 1rem;
+    }
+    .navbar-menu {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 0;
+    }
+    .navbar-item {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+    .navbar-link {
+        font-size: 16px;
+        padding: 0.5rem 1rem;
+    }
+    .navbar-logo img {
+        height: 60px;
+        width: 60px;
+    }
+    .navbar-logo span {
+        font-size: 18px;
+    }
+    .navbar-link {
+        font-size: 16px;
+    }
+    .piez-eau {
+        font-size: 40px;
+    }
+    .label {
+        font-size: 20px;
+    }
+    .value {
+        font-size: 30px;
+        width: 120px;
+    }
+    .station-infos {
+        width: 240px;
+    }
+    .footer .piez-eau, .footer .propos, .footer .contacter-piez-eau {
+        font-size: 30px;
+    }
+    .footer .stations-chroniques-chroniques-en-temps-rel, .footer span {
+        font-size: 18px;
+    }
+    .footer .text-apropos, .footer .contact {
+        width: 90%;
+    }
+    .footer .votre-nom, .footer .votre-mail, .footer .votre-message {
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-container {
+        padding: 0.5rem;
+    }
+    .navbar-logo img {
+        height: 60px;
+        width: 60px;
+    }
+    .navbar-logo span {
+        font-size: 18px;
+    }
+    .navbar-link {
+        font-size: 16px;
+    }
+    .piez-eau {
+        font-size: 40px;
+    }
+    .label {
+        font-size: 20px;
+    }
+    .value {
+        font-size: 30px;
+        width: 120px;
+    }
+    .station-infos {
+        width: 240px;
+    }
+    .footer .piez-eau, .footer .propos, .footer .contacter-piez-eau {
+        font-size: 30px;
+    }
+    .footer .stations-chroniques-chroniques-en-temps-rel, .footer span {
+        font-size: 18px;
+    }
+    .footer .text-apropos, .footer .contact {
+        width: 90%;
+    }
+    .footer .votre-nom, .footer .votre-mail, .footer .votre-message {
+        width: 90%;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-logo img {
+        height: 40px;
+        width: 40px;
+    }
+    .navbar-logo span {
+        font-size: 16px;
+    }
+    .navbar-link {
+        font-size: 14px;
+    }
+    .piez-eau {
+        font-size: 30px;
+    }
+    .label {
+        font-size: 18px;
+    }
+    .value {
+        font-size: 20px;
+        width: 100px;
+    }
+    .station-infos {
+        width: 200px;
+    }
+    #map {
+        width: calc(100% - 200px); /* Adjust based on the width of the info panel */
+    }
+    #info-panel {
+        width: 200px; /* Adjust the width for smaller screens */
+    }
+    .legende {
+        padding: 20px;
+    }
+    .legende .title {
+        font-size: 12px;
+    }
+    .legende-item {
+        width: 50px; 
+        height: 20px; 
+        margin: 3px; 
+    }
+    .tooltip {
+        width: 180px;
+        padding: 5px;
+    }
+    .tooltip::before {
+        border-width: 0 10px 10px 10px;
+    }
+    .footer .piez-eau, .footer .propos, .footer .contacter-piez-eau {
+        font-size: 25px;
+    }
+    .footer .stations-chroniques-chroniques-en-temps-rel, .footer span {
+        font-size: 16px;
+    }
+    .footer .text-apropos, .footer .contact {
+        width: 100%;
+        padding: 0 10px;
+    }
+    .footer .votre-nom, .footer .votre-mail, .footer .votre-message {
+        width: 100%;
+    }
+}

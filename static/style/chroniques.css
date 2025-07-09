@@ -1,0 +1,763 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+
+    body {
+        font-family: montserrat;
+        margin: 0;
+        padding: 0;
+        background-color: #fcf6f3; 
+    }
+* {
+    padding: none;
+    margin: none;
+    cursor: default !important;
+}
+
+
+/* Style de la barre de navigation */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Monserrat';
+    align-items: center;
+    background-color: #12769E;
+    height: 70px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    margin-left: -16px;
+    top: -22.8px; 
+    position: relative;
+    text-decoration: none;
+}
+
+.navbar-logo img {
+    height: 100px;
+    width: 100px;
+    margin-right: 0.2rem;
+}
+
+.navbar-logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.navbar-logo span {
+    font-size: 26px; 
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    color: #fcf6f3; 
+}
+
+.navbar-menu {
+    padding-bottom: 30px;
+    display: flex;
+    list-style: none;
+    margin-right: 4px;
+}
+
+.navbar-menu li {
+    margin-left: 1rem;
+}
+
+.navbar-menu .navbar-link {
+    color: #fcf6f3;
+    text-decoration: none;
+    padding: 0.5rem 2rem;
+    font-size: 20px;
+}
+
+.navbar-menu .navbar-link:hover {
+    transition: background-color 0.3s;
+    border-radius: 50px;
+    background-color: #fcf6f3;
+    color: #12769E;
+    text-decoration: none;
+}
+
+.a-propos {
+    color: #fcf6f3;
+    background-color: #001952; 
+    border-radius: 50px;
+    padding: 1rem 1rem;
+}
+
+.a-propos:hover {
+    background-color: #fcf6f3;
+    color: #12769E;
+}
+#preloader {
+    background: url('/static/images/preloader.gif') no-repeat center;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 10000;
+    display: none;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);  
+    z-index: 9999;  
+    display: none;  
+}
+
+.main-container {
+    display: flex;
+    min-height: 100vh - 70px; 
+    overflow: hidden;
+}
+
+/*Style du Sidebar */
+.sidebar {
+    display: flex;
+    flex: 0 0 350px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center; 
+    padding: 20px;
+    background-color: #fcf6f3;
+    box-shadow: 3px 0 1px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    z-index: 1000;
+    height: 737px;
+}
+
+.sidebar h2 {
+    width: 206px;
+    height: 24px;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 900;
+    color: #001952;
+    text-align: center; 
+    margin-bottom: 14px;
+}
+
+.sidebar input {
+    width: 180px;
+    padding: 10px;
+    height: 35px;
+    margin: 6px 0 13px;
+    border-radius: 69px;
+    background-color: #ededed;
+    color: #12769E;
+    border: none;
+    font-size: 14px;
+}
+
+.sidebar-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    width: 260px;
+    height: 200px;
+    flex-grow: 0;
+    padding: 12px 26px 16px;
+    border-radius: 29px;
+    box-shadow: 0 3px 6.4px 0 rgba(0, 0, 0, 0.5);
+    background-color: white;
+    position: relative; 
+}
+
+.sidebar button {
+    width: 160px;
+    height: 35px;
+    margin: 6px 0 0;
+    padding: 2px 11px 4px 12px;
+    border-radius: 23px;
+    background-color: #12769e;
+    color: #fcf6f3;
+    cursor: pointer;
+    font-size: 14px;
+    border: none;
+}
+
+.sidebar button:hover {
+    background-color: #001952;
+    color: #fcf6f3;
+}
+
+/* Style pour autocompléter les code_bss */
+.autocomplete {
+    position: absolute;
+    width: 300px; 
+    cursor: pointer;
+    border-radius: 29px;
+    box-shadow: 0 3px 6.4px 0 rgba(0, 0, 0, 0.5);
+    background-color: white;
+    overflow-y:auto; 
+    max-height: 490px; 
+    z-index: 99;
+    top: 220px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    scrollbar-color: #12769E #f1f1f1; 
+    scrollbar-width: thick; 
+}
+
+.autocomplete-active {
+    background-color: #0c6385;
+    color: #fcf6f3;
+}
+.autocomplete-items {
+    border-bottom: 1px solid #ccc;  
+    padding: 10px;                 
+    list-style-type: none;   
+    display: flex;
+    align-items: center;
+}
+
+.autocomplete-items:hover {
+    color: rgb(27, 77, 170);
+    border-radius: 29px;
+    box-shadow: 0 3px 6.4px 0 rgba(0, 0, 0, 0.5);
+    background-color: #fcf6f3;  
+}
+
+.autocomplete-items:last-child {
+    border-bottom: none;
+}
+
+
+#autocomplete-list {
+    padding: 0;
+    list-style: none;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 29px;
+    box-shadow: 0 3px 6.4px 0 rgba(0, 0, 0, 0.5);
+    background-color: white;
+    overflow-y: auto; 
+    max-height: 100%;
+    width: 300px;
+}
+
+
+/* Style du graphique */
+.graph-container {
+    flex: 1; 
+    overflow-y: auto;
+}
+
+/* Style du tableau des informations */
+.table-infos {
+    margin-bottom: 40px;
+}
+.table-infos h3 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #12769E;
+    text-align: center;
+    margin-bottom: 20px; 
+}
+
+.table-in.table.table-bordered.table-striped {
+    width: 80%;
+    margin-bottom: 40px;
+}
+
+.thead th {
+    background-color: #F0F8FF;
+    align-items: center;
+    font-size: 20px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table td {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 18px;
+    line-height: 20px;
+    background-color: white;
+    border-bottom: 2px solid #ddd;
+    height: 40px;
+}
+
+/*Style du footer*/ 
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    background-image: url(/static/images/water.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.footer .piez-eau {
+    margin-bottom: 24px;
+    display: inline-block;
+    align-self: flex-start;
+    overflow-wrap: break-word;
+    font-family: 'Inter';
+    font-weight: bold;
+    font-size: 36px; 
+    color: #FFFFFF;
+}
+
+.footer .stations-chroniques-chroniques-en-temps-rel {
+    overflow-wrap: break-word;
+    font-family: 'Montserrat';
+    font-weight: 400;
+    font-size: 20px; 
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer a {
+    text-decoration: none;
+    display: block;
+    flex-direction: column;
+    margin-bottom: 35px; 
+    padding: 0.875rem 1.25rem; 
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.footer .stations, .footer .chroniques, .footer .chroniques-tr, .footer .alertes {
+    background-color: #fcf6f3;
+    color: #12769E;
+    border-radius: 50px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+.footer .stations:hover, .footer .chroniques:hover, .footer .chroniques-tr:hover, .footer .alertes:hover {
+    color: #fcf6f3;
+    background-color: #12769E;
+}
+
+.footer .text-piezeau {
+    margin: 0 35px 140px 0; 
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.footer .propos {
+    margin-bottom: 22px;
+    display: inline-block;
+    overflow-wrap: break-word;
+    font-family: 'Montserrat';
+    font-weight: bold;
+    font-size: 36px;
+    color: #FFFFFF;
+}
+
+.footer span {
+    text-align: justify;
+    overflow-wrap: break-word;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 400;
+    font-size: 15px; 
+    color: #FFFFFF;
+    list-style: none;
+    line-height: 28px; 
+}
+
+.footer .text-apropos {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 550px; 
+    padding-left: 70px; 
+}
+
+.footer .group-2 {
+    margin: 0 0 35px 0; 
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+}
+
+.footer .contact {
+    display: flex;
+    flex-direction: column;
+    width: 450px; 
+    box-sizing: border-box;
+    padding-left: 70px; 
+}
+
+.footer .contacter-piez-eau {
+    margin-bottom: 25px;
+    display: inline-block;
+    align-self: flex-start;
+    overflow-wrap: break-word;
+    font-family: 'Montserrat';
+    font-weight: bold;
+    font-size: 36px; /* Taille ajustée */
+    color: #FFFFFF;
+}
+
+.footer input:focus, .footer textarea:focus {
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+
+.footer .votre-nom, .footer .votre-mail, .footer .votre-message {
+    overflow-wrap: break-word;
+    font-family: 'Montserrat';
+    font-weight: 400;
+    font-size: 15px; 
+    color: #696565;
+    border-radius: 8px;
+    background: white;
+    position: relative;
+    margin-bottom: 25px; 
+    padding: 6px 13px;
+    width: 350px; 
+    height: 45px; 
+    box-sizing: border-box;
+    border: none;
+}
+
+.footer .votre-message {
+    height: 170px; 
+    padding-bottom: 130px; 
+}
+
+.footer input {
+    border-radius: 8px;
+    background: white;
+    position: relative;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.footer .envoyer {
+    margin-right: 12px; 
+    overflow-wrap: break-word;
+    font-family: 'Montserrat';
+    font-weight: 400;
+    font-size: 15px; 
+    color: #000000;
+}
+
+.footer .vector {
+    width: 17.5px; 
+    height: 15px; 
+}
+
+.footer .icbaseline-send {
+    margin-top: 7px;
+    display: flex;
+    width: 17.5px; 
+    height: 15px; 
+    box-sizing: border-box;
+}
+
+.footer .envoyer-1 {
+    border-radius: 8px;
+    background: #75D4FA;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    padding: 6px 10px; 
+    width: fit-content;
+    box-sizing: border-box;
+}
+
+.footer .rectangles {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: fit-content;
+    box-sizing: border-box;
+}
+
+.footer .contacter {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    box-sizing: border-box;
+    margin-top: 75px; 
+}
+
+.footer .vector-1 {
+    width: 25px;
+    height: 25px;
+}
+.footer .uilinstagram {
+    margin: 0px 23.8px 0 0;
+    display: flex;
+    width: 25px;
+    height: 25px;
+    box-sizing: border-box;
+}
+.footer .vector-2 {
+    width: 16.3px;
+    height: 25px;
+}
+.footer .evafacebook-outline {
+    margin: 0 22.5px 0px 0;
+    display: flex;
+    width: 16.3px;
+    height: 25px;
+    box-sizing: border-box;
+}
+.footer .vector-3 {
+    width: 30px;
+    height: 24.5px;
+}
+.footer .simple-line-iconssocial-twitter {
+    margin: 0.3px 17.5px 0.3px 0;
+    display: flex;
+    width: 30px;
+    height: 24.5px;
+    box-sizing: border-box;
+}
+.footer .vector-4 {
+    width: 25px;
+    height: 25px;
+}
+.footer .ripinterest-line {
+    margin: 0px 21.1px 0 0;
+    display: flex;
+    width: 25px;
+    height: 25px;
+    box-sizing: border-box;
+}
+.footer .vector-5 {
+    width: 22.6px;
+    height: 25px;
+}
+.footer .ritiktok-line {
+    margin: 0px 0;
+    display: flex;
+    width: 22.6px;
+    height: 25px;
+    box-sizing: border-box;
+}
+.footer .icon {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    box-sizing: border-box;
+}
+@media (max-width: 1200px) {
+    .navbar-logo img {
+        height: 80px;
+        width: 80px;
+    }
+
+    .navbar-logo span {
+        font-size: 22px;
+    }
+
+    .navbar-link {
+        font-size: 18px;
+        padding: 0.5rem 1.5rem;
+    }
+
+    .navbar-menu {
+        margin-left: 300px;
+    }
+
+    .sidebar {
+        flex: 0 0 300px;
+    }
+
+    .sidebar-container {
+        width: 220px;
+    }
+
+    .table-infos h3 {
+        font-size: 24px;
+    }
+
+    .table td {
+        font-size: 16px;
+    }
+
+    .footer .piez-eau, .footer .propos, .footer .contacter-piez-eau {
+        font-size: 35px;
+    }
+
+    .footer .stations-chroniques-chroniques-en-temps-rel, .footer span {
+        font-size: 20px;
+    }
+
+    .footer .text-apropos, .footer .contact {
+        width: 80%;
+    }
+
+    .footer .votre-nom, .footer .votre-mail, .footer .votre-message {
+        width: 80%;
+    }
+}
+
+@media (max-width: 992px) {
+    .navbar-container {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 1rem;
+    }
+
+    .navbar-menu {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 0;
+    }
+
+    .navbar-item {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    .navbar-link {
+        font-size: 16px;
+        padding: 0.5rem 1rem;
+    }
+
+    .sidebar {
+        flex: 0 0 250px;
+    }
+
+    .sidebar-container {
+        width: 200px;
+    }
+
+    .table-infos h3 {
+        font-size: 22px;
+    }
+
+    .table td {
+        font-size: 14px;
+    }
+
+    .footer .piez-eau, .footer .propos, .footer .contacter-piez-eau {
+        font-size: 30px;
+    }
+
+    .footer .stations-chroniques-chroniques-en-temps-rel, .footer span {
+        font-size: 18px;
+    }
+
+    .footer .text-apropos, .footer .contact {
+        width: 90%;
+    }
+
+    .footer .votre-nom, .footer .votre-mail, .footer .votre-message {
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-container {
+        padding: 0.5rem;
+    }
+
+    .navbar-logo img {
+        height: 60px;
+        width: 60px;
+    }
+
+    .navbar-logo span {
+        font-size: 20px;
+    }
+
+    .navbar-link {
+        font-size: 14px;
+        padding: 0.5rem;
+    }
+
+    .sidebar {
+        flex: 0 0 200px;
+        padding: 10px;
+    }
+
+    .sidebar-container {
+        width: 180px;
+    }
+
+    .table-infos h3 {
+        font-size: 20px;
+    }
+
+    .table td {
+        font-size: 12px;
+    }
+
+    .footer .piez-eau, .footer .propos, .footer .contacter-piez-eau {
+        font-size: 25px;
+    }
+
+    .footer .stations-chroniques-chroniques-en-temps-rel, .footer span {
+        font-size: 16px;
+    }
+
+    .footer .text-apropos, .footer .contact {
+        width: 100%;
+        padding: 0 10px;
+    }
+
+    .footer .votre-nom, .footer .votre-mail, .footer .votre-message {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-logo img {
+        height: 50px;
+        width: 50px;
+    }
+
+    .navbar-logo span {
+        font-size: 18px;
+    }
+
+    .navbar-link {
+        font-size: 12px;
+        padding: 0.5rem;
+    }
+
+    .sidebar {
+        flex: 0 0 150px;
+        padding: 5px;
+    }
+
+    .sidebar-container {
+        width: 140px;
+    }
+
+    .table-infos h3 {
+        font-size: 18px;
+    }
+
+    .table td {
+        font-size: 10px;
+    }
+
+    .footer .piez-eau, .footer .propos, .footer .contacter-piez-eau {
+        font-size: 20px;
+    }
+
+    .footer .stations-chroniques-chroniques-en-temps-rel, .footer span {
+        font-size: 14px;
+    }
+
+    .footer .text-apropos, .footer .contact {
+        width: 100%;
+        padding: 0 5px;
+    }
+
+    .footer .votre-nom, .footer .votre-mail, .footer .votre-message {
+        width: 100%;
+    }
+}

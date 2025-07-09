@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alertes</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <link rel="stylesheet" href="/static/style/alertes.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+</head>
+<body>
+    <header>
+        {% include 'nav.html' %}
+    </header>
+
+    <div id="overlay"></div>
+    <div id="preloader"></div>
+
+    <!-- Vidéo en fond d'écran -->
+    <div id="div-background-video" class="video-container" >
+        <video id="background-video" style="display:none" autoplay loop muted>
+            <source src="/static/video/liquid.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div style="display:block;margin-left:10px">
+         <div class="recherche-container">
+            <div class="recherche">
+                <h1>Alertes Piézométriques</h1>
+            </div>
+            <div class="recherche">
+                <label>Période de référence</label>
+                <select id="period">
+                    <option value="7">Hebdomadaire</option>
+                    <option value="30">Mensuelle</option>
+                    <option value="365">Annuelle</option>
+                </select>
+            </div>
+            <div class="recherche">
+                <label>Unité de référence pour le tri</label>
+                <select id="unit">
+                    <option value="0">Mètre</option>
+                    <option value="1">Pourcentage</option>
+                </select>
+            </div>
+            <div class="recherche">
+                <button class="button" onclick="searchAlertes()">Afficher les alertes</button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="image-container" style="display:inline-block;margin-left:10px;width:30%">
+            <img src="/static/images/nappe.png" alt="Image de nappe">
+        </div>
+        <div style="display:inline-block;margin-left:10px;width:60%">
+            <h4><i class="info-icon" style="margin-left:10px">ℹ️</i>Cette page permet d'afficher des alertes sur les niveaux d'eau des stations qui sont en baisse.</h4>
+            <h4><i class="info-icon">🕒</i>Vous pouvez choisir 3 périodes de références différentes : hebdomadaire, mensuelle ou annuelle.</h4>
+            <h4><i class="info-icon">⚖️</i>Le choix de l'unité de référence pour le tri permet lancer la recherche et de trier la liste suivant la différence en mètre ou en %.</h4>
+            <h4><i class="info-icon">⚠️</i>Attention, lorsque vous sélectionnez une période de référence alors les alertes affichées concerneront uniquement les stations qui ont des mesures sur toutes la période.</h4>
+        </div>
+    </div>
+    <div class="infos-container" style="display:block;">
+        <div style="display:block;margin:20px">
+            <label id="period_dates">Période:</label>
+        </div>
+        <div style="display:block; width: 100%;padding:20px">
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <th>Station</th>
+                        <th>Différence de Niveau (mètre)</th>
+                        <th>Différence de Niveau (%)</th>
+                        <th>Niveau actuel</th>
+                        <th>Niveau précédent</th>
+                        <th>Ville</th>
+                        <th>Code postal</th>
+                        <th>Département</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="loading" style="display:none">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Conteneur pour l'animation de remplissage d'eau -->
+    <div id="water-fill"></div>
+
+    <script src="/static/script/alertes.js"></script>
+</body>
+</html>

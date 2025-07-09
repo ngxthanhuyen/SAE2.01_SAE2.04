@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIEZ'EAU</title>
+    <link rel="stylesheet" href="../static/style/index.css">
+    <link rel="icon" href="../static/images/favicon.ico">
+</head>
+<body>
+    <header>
+        <!-- Barre de navigation -->
+        <nav class="navbar">
+            <div class="navbar-container">
+                <div class="navbar-logo">
+                    <a href="/">
+                        <img src="../static/images/logo.png" alt="Logo">
+                        <span>PIEZ'EAU</span>
+                    </a>
+                </div>
+                <ul class="navbar-menu">
+                    <li class="navbar-item"><a href="/stations" class="navbar-link">Stations</a></li>
+                    <li class="navbar-item"><a href="/chroniques" class="navbar-link">Chroniques</a></li>
+                    <li class="navbar-item"><a href="/chroniques_tr" class="navbar-link">Chroniques en temps réel</a></li>
+                    <li class="navbar-item"><a href="/alertes" class="navbar-link">Alertes</a></li>
+                    <li class="navbar-item"><a href="#about-section" class="navbar-link a-propos">À PROPOS</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="hero-section">
+            <h1>AU CœUR DES EAUX</h1>
+            <p>Bienvenue sur PIEZ'EAU, votre portail sur les mesures de piézométrie (niveau d'eau dans les nappes d'eau souterraine), en France entière. 
+                Plongez dans nos données et nos analyses pour en apprendre plus sur les mystères sous-marins.</p>
+        </div>
+    </header>
+    <main>
+        <section class="features-section">
+            <div class="feature">
+                <img src="../static/images/transport_acceuil.png" alt="Stations">
+                <h2>Visualiser l'ensemble des stations</h2>
+                <p>Rechercher les stations de mesure des niveaux des nappes d'eau (stations piézométriques).</p>
+                <div class="button-container">
+                    <a href="/stations" class="button">Découvrir</a>
+                </div>
+            </div>
+            <div class="feature">
+                <img src="../static/images/tool_acceuil.png" alt="Chroniques">
+                <h2>Accéder aux chroniques historiques</h2>
+                <p>Consulter les niveaux des nappes d'eau (chroniques piézométriques) à long terme.</p>
+                <div class="button-container">
+                    <a href="chroniques" class="button">Découvrir</a>
+                </div>
+            </div>
+            <div class="feature">
+                <img src="../static/images/cogwheel_acceuil.png" alt="Chroniques temps réel">
+                <h2>Accéder aux chroniques en temps réel</h2>
+                <p>Consulter les niveaux des nappes d'eau (chroniques piézométriques) en temps réél.</p>
+                <div class="button-container">
+                    <a href="chroniques_tr" class="button">Découvrir</a>
+                </div>
+            </div>
+            <div class="feature">
+                <img src="../static/images/drink_14046865.png" alt="Alertes">
+                <h2>Accéder aux alertes sur les niveaux des nappes d'eau</h2>
+                <p>Consulter les alertes des niveaux des nappes d'eau basée sur une période spécifique.</p>
+                <div class="button-container">
+                    <a href="alertes" class="button">Découvrir</a>
+                </div>
+            </div>
+        </section>
+        <section id="about-section" class="about-section">
+            <h2>À PROPOS</h2>
+            <div class="about-content">
+                <div class="about-item">
+                    <div class="about-text">
+                        <h3>Qui sommes-nous ?</h3>
+                        <p>PIEZ'EAU est un projet dédié à la surveillance et à l'analyse des niveaux d'eau dans les nappes souterraines en France. Notre mission est de fournir des données précises et accessibles sur les niveaux de nappes, afin de favoriser la compréhension et la gestion durable des ressources en eau.  En facilitant l'accès à ces informations, nous espérons contribuer à une meilleure gestion des ressources en eau et à la sensibilisation aux enjeux hydrologiques.</p>
+                    </div>
+                    <img class="img1" src="../static/images/utilisateurs-alt.png" alt="Qui sommes-nous ?">
+                </div>
+                <div class="about-item">
+                    <img class="img2" src="../static/images/casquette-de-graduation.png" alt="Pourquoi ce site ?">
+                    <div class="about-text">
+                        <h3>Pourquoi ce site ?</h3>
+                        <p>Le site PIEZ'EAU a été créé pour centraliser les informations relatives aux niveaux des nappes d'eau souterraines en France. Son but est d'offrir une plateforme intuitive et interactive permettant aux chercheurs, aux gestionnaires de l'eau, ainsi qu'au grand public, d'accéder facilement aux données piézométriques et d'en tirer des analyses pertinentes sur les niveaux des nappes phréatiques.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    {% include 'footer.html' %}
+</body>
+</html>

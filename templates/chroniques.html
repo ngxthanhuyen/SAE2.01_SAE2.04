@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphique des chroniques historiques</title>
+    <link rel="stylesheet" href="/static/style/chroniques.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <header>
+        {% include 'nav.html' %}
+    </header>
+    <div id="overlay" style="display: none;"></div>
+    <div id="preloader" style="display: none;"></div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-container">
+                <h2>Visualisez le graphique du niveau de la nappe</h2>
+                <input type="text" id="code_bss_input" placeholder="Entrez le code_bss" oninput="getCode_Bss()">
+                <div class="autocomplete" id="autocomplete"></div>
+                <button onclick="submitCodeBss()">Afficher le graphique</button>
+            </div>
+            <ul id="autocomplete-list"></ul> 
+        </div>
+        <div class="graph-container" id="plotly-container">
+            <!--safe permet d'assurer que le code HTML qui génère le graphique soit interprété correctement par le navigateur comme du HTML et pas comme du texte-->
+            {{ time_series_html|safe }}
+        </div>
+    </div>
+    {% if stats_present %}
+    <center>
+        <div class="table-infos">
+            <h3>Plus de détails sur ce piézomètre:</h3>
+            <table class="table table-bordered table-striped">
+                <thead class="thead">
+                    <tr>
+                        <th>Code_BSS</th>
+                        <th>Nb Mesures</th>
+                        <th>Début</th>
+                        <th>Fin</th>
+                        <th>Niveau minimum</th>
+                        <th>Niveau maximum</th>
+                        <th>Moyenne</th>
+                        <th>Ecart-type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ code_bss }}</td>
+                        <td>{{ data_length }}</td>
+                        <td>{{ dates[0] }}</td>
+                        <td>{{ dates[-1] }}</td>
+                        <td>{{ min|round(2) }}</td>
+                        <td>{{ max|round(2) }}</td>
+                        <td>{{ moyenne_niveaux|round(2) }}</td>
+                        <td>{{ ecart_type_niveau|round(2) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </center>
+    {% endif %}
+    <center>{{ boxplot_html|safe }}</center>
+
+    {% include 'footer.html' %}
+    <script src="/static/script/chroniques.js"></script>
+</body>
+</html>

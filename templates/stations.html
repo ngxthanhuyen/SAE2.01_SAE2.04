@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carte des Stations Piézométriques</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>   
+    <link rel="stylesheet" href="/static/style/stations.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script> 
+</head>
+<body>
+    <header>
+        {% include 'nav.html' %}
+    </header>
+    <div id="overlay"></div>
+    <div id="preloader"></div>
+    <div class="recherche-container">
+        <div class="recherche">
+            <label for="search">Votre ville</label>
+            <div class="autocomplete-wrapper">
+                <input type="text" id="search" placeholder="Entrez votre ville" oninput="getCommuneData()">
+                <div class="autocomplete-list">
+                    <div class="autocomplete" id="autocomplete"></div>
+                </div>
+            </div>
+        </div>
+        <div class="recherche">
+            <label>Dans un rayon de</label>
+            <select id="radius">
+                <option value="5">Moins de 5 km</option>
+                <option value="10">Moins de 10 km</option>
+                <option value="20">Moins de 20 km</option>
+                <option value="0">Sans rayon</option>
+            </select>
+        </div>
+        <div class="recherche">
+            <button class="button" onclick="searchStations()">Rechercher</button>
+        </div>
+    </div>
+
+    <div class="infos-container">
+        <div id="sidebar">
+            <div id="stationList-container">
+                <h1>Stations</h1>
+                <ul id="stationList">
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="map">
+            <div id="stationDetails" class="stationDetails">
+                <button class="close-btn">&times;</button>
+                <div class="details-content">
+                </div>
+            </div>
+        </div>
+    </div>  
+    
+    {% include 'footer.html' %}
+    <script src="/static/script/stations.js"></script>
+</body>
+</html>
